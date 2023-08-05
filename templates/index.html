@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+<div class="container">
+  <form action="/add" method="post">
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button type="button"  class="btn btn-primary" onclick="showAddFields()"">Add Wish</button>
+    </div>
+    <br>
+    <div id="add_wish" style="display: none">
+        <div class="mb-3">
+            <input class="form-control" type="text" id="wish" name="wish" placeholder="Wish name" autofocus autocomplete="off">
+        </div>
+        <div class="mb-3">
+          <input class="form-control mx-auto container-sm" type="url" id="url" name="url" placeholder="URL Of Product" autofocus autocomplete="off">
+        </div>
+        <div class="mb-3">
+            <input class="form-control mx-auto container-sm" type="text" id="message" name="message" placeholder="Wish Notes" autofocus autocomplete="off">
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+    </div>
+  </form>
+  <main class="container py-5 text-center">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="text">Actions</th>
+                <th class="text-start">ID</th>
+                <th class="text-start">Wishes</th>
+                <th class="text-end">url</th>
+                <th class="text-end">message</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for wish in wishes %}
+              <tr>
+                <td class="text">
+                  <form action="{{ url_for('delete_wish') }}" method="POST">
+                    <input type="hidden" name="wish_id" value="{{ wish.id }}">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                          
+                </td>
+                <td class="text-start">{{ wish.id }}</td>
+                <td class="text-start">{{ wish.name }}</td>
+                {% if wish.url != "No URL" %}
+                  <td class="text-end"><a href="{{ wish.url }}"><i class="fas fa-link"></i><i class="bi bi-link"></i></a></td>
+                {% else %}
+                  <td class="text-end">NO URL</td>
+                {% endif %}
+                <td class="text-end">{{ wish.message }}</td>
+
+
+                </td>
+              </tr>
+            {% endfor %}
+        </tbody>
+    </table> 
+  </main>   
+</div>
+<script>
+  function showAddFields() {
+      var x = document.getElementById("add_wish");
+      if (x.style.display === "none") {
+          x.style.display = "block";
+      } else {
+          x.style.display = "none";
+      }
+  }
+</script>
+{% endblock %}

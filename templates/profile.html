@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    PROFILE
+{% endblock %}
+
+{% block main %}
+    <form action="/profile" method="post" style="max-width: 400px; margin: 0 auto;">
+        <div class="mb-3 text-center">
+            <label class="form-label">Username :</label>
+            <input class="form-control mx-auto container-sm text-center" style="font-weight: bold; max-width: 100px" type="text" id="user_name" name="user_name" value="{{ user_name }}" readonly>
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary" type="button" onclick="showPasswordFields()">Change Password</button>
+        </div>
+        <div id="passwordFields" style="display: none">
+            <div class="mb-3">
+                <input class="form-control" type="password" id="old_password" name="old_password" placeholder="Old Password">
+            </div>
+            <div class="mb-3">
+                <input class="fform-control mx-auto container-sm" type="password" id="new_password" name="new_password" placeholder="New Password">
+            </div>
+            <div class="mb-3">
+                <input class="form-control mx-auto container-sm" type="password" id="conf_new_password" name="conf_new_password" placeholder="Re-enter Password">
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        function showPasswordFields() {
+            var x = document.getElementById("passwordFields");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+    </script>
+{% endblock %}
